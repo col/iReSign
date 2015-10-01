@@ -8,7 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		EFB7C41F1BBD26C7005148C6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C41E1BBD26C7005148C6 /* main.swift */; };
+		EFB7C42C1BBD279C005148C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C42B1BBD279C005148C6 /* AppDelegate.swift */; };
+		EFB7C42E1BBD279C005148C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C42D1BBD279C005148C6 /* ViewController.swift */; };
+		EFB7C4301BBD279C005148C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFB7C42F1BBD279C005148C6 /* Assets.xcassets */; };
+		EFB7C4331BBD279C005148C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFB7C4311BBD279C005148C6 /* Main.storyboard */; };
+		EFB7C43E1BBD279C005148C6 /* iReSignAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C43D1BBD279C005148C6 /* iReSignAppTests.swift */; };
+		EFB7C4471BBD343B005148C6 /* IRTestFieldDrag.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4461BBD343B005148C6 /* IRTestFieldDrag.swift */; settings = {ASSET_TAGS = (); }; };
+		EFB7C4491BBD3773005148C6 /* IRHelpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */; settings = {ASSET_TAGS = (); }; };
+		EFB7C44C1BBD696E005148C6 /* IRCertificates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C44B1BBD696E005148C6 /* IRCertificates.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EFB7C43A1BBD279C005148C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EFB7C4131BBD26C7005148C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EFB7C4281BBD279C005148C6;
+			remoteInfo = iReSignApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		EFB7C4191BBD26C7005148C6 /* CopyFiles */ = {
@@ -25,10 +43,36 @@
 /* Begin PBXFileReference section */
 		EFB7C41B1BBD26C7005148C6 /* iReSign */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = iReSign; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFB7C41E1BBD26C7005148C6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		EFB7C4291BBD279C005148C6 /* iReSignApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iReSignApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFB7C42B1BBD279C005148C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EFB7C42D1BBD279C005148C6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EFB7C42F1BBD279C005148C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EFB7C4321BBD279C005148C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EFB7C4341BBD279C005148C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFB7C4391BBD279C005148C6 /* iReSignAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iReSignAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFB7C43D1BBD279C005148C6 /* iReSignAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iReSignAppTests.swift; sourceTree = "<group>"; };
+		EFB7C43F1BBD279C005148C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFB7C4461BBD343B005148C6 /* IRTestFieldDrag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRTestFieldDrag.swift; sourceTree = "<group>"; };
+		EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRHelpWindow.swift; sourceTree = "<group>"; };
+		EFB7C44B1BBD696E005148C6 /* IRCertificates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IRCertificates.swift; path = Signing/IRCertificates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		EFB7C4181BBD26C7005148C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFB7C4261BBD279C005148C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFB7C4361BBD279C005148C6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				EFB7C41D1BBD26C7005148C6 /* iReSign */,
+				EFB7C42A1BBD279C005148C6 /* iReSignApp */,
+				EFB7C43C1BBD279C005148C6 /* iReSignAppTests */,
 				EFB7C41C1BBD26C7005148C6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				EFB7C41B1BBD26C7005148C6 /* iReSign */,
+				EFB7C4291BBD279C005148C6 /* iReSignApp.app */,
+				EFB7C4391BBD279C005148C6 /* iReSignAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +108,38 @@
 				EFB7C41E1BBD26C7005148C6 /* main.swift */,
 			);
 			path = iReSign;
+			sourceTree = "<group>";
+		};
+		EFB7C42A1BBD279C005148C6 /* iReSignApp */ = {
+			isa = PBXGroup;
+			children = (
+				EFB7C44A1BBD6929005148C6 /* Signing */,
+				EFB7C42B1BBD279C005148C6 /* AppDelegate.swift */,
+				EFB7C42D1BBD279C005148C6 /* ViewController.swift */,
+				EFB7C42F1BBD279C005148C6 /* Assets.xcassets */,
+				EFB7C4311BBD279C005148C6 /* Main.storyboard */,
+				EFB7C4341BBD279C005148C6 /* Info.plist */,
+				EFB7C4461BBD343B005148C6 /* IRTestFieldDrag.swift */,
+				EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */,
+			);
+			path = iReSignApp;
+			sourceTree = "<group>";
+		};
+		EFB7C43C1BBD279C005148C6 /* iReSignAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				EFB7C43D1BBD279C005148C6 /* iReSignAppTests.swift */,
+				EFB7C43F1BBD279C005148C6 /* Info.plist */,
+			);
+			path = iReSignAppTests;
+			sourceTree = "<group>";
+		};
+		EFB7C44A1BBD6929005148C6 /* Signing */ = {
+			isa = PBXGroup;
+			children = (
+				EFB7C44B1BBD696E005148C6 /* IRCertificates.swift */,
+			);
+			name = Signing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +162,41 @@
 			productReference = EFB7C41B1BBD26C7005148C6 /* iReSign */;
 			productType = "com.apple.product-type.tool";
 		};
+		EFB7C4281BBD279C005148C6 /* iReSignApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EFB7C4401BBD279C005148C6 /* Build configuration list for PBXNativeTarget "iReSignApp" */;
+			buildPhases = (
+				EFB7C4251BBD279C005148C6 /* Sources */,
+				EFB7C4261BBD279C005148C6 /* Frameworks */,
+				EFB7C4271BBD279C005148C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iReSignApp;
+			productName = iReSignApp;
+			productReference = EFB7C4291BBD279C005148C6 /* iReSignApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EFB7C4381BBD279C005148C6 /* iReSignAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EFB7C4431BBD279C005148C6 /* Build configuration list for PBXNativeTarget "iReSignAppTests" */;
+			buildPhases = (
+				EFB7C4351BBD279C005148C6 /* Sources */,
+				EFB7C4361BBD279C005148C6 /* Frameworks */,
+				EFB7C4371BBD279C005148C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EFB7C43B1BBD279C005148C6 /* PBXTargetDependency */,
+			);
+			name = iReSignAppTests;
+			productName = iReSignAppTests;
+			productReference = EFB7C4391BBD279C005148C6 /* iReSignAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -94,6 +209,13 @@
 					EFB7C41A1BBD26C7005148C6 = {
 						CreatedOnToolsVersion = 7.0;
 					};
+					EFB7C4281BBD279C005148C6 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					EFB7C4381BBD279C005148C6 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = EFB7C4281BBD279C005148C6;
+					};
 				};
 			};
 			buildConfigurationList = EFB7C4161BBD26C7005148C6 /* Build configuration list for PBXProject "iReSign" */;
@@ -102,6 +224,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = EFB7C4121BBD26C7005148C6;
 			productRefGroup = EFB7C41C1BBD26C7005148C6 /* Products */;
@@ -109,9 +232,30 @@
 			projectRoot = "";
 			targets = (
 				EFB7C41A1BBD26C7005148C6 /* iReSign */,
+				EFB7C4281BBD279C005148C6 /* iReSignApp */,
+				EFB7C4381BBD279C005148C6 /* iReSignAppTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EFB7C4271BBD279C005148C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFB7C4301BBD279C005148C6 /* Assets.xcassets in Resources */,
+				EFB7C4331BBD279C005148C6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFB7C4371BBD279C005148C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EFB7C4171BBD26C7005148C6 /* Sources */ = {
@@ -122,7 +266,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EFB7C4251BBD279C005148C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFB7C42E1BBD279C005148C6 /* ViewController.swift in Sources */,
+				EFB7C4491BBD3773005148C6 /* IRHelpWindow.swift in Sources */,
+				EFB7C42C1BBD279C005148C6 /* AppDelegate.swift in Sources */,
+				EFB7C44C1BBD696E005148C6 /* IRCertificates.swift in Sources */,
+				EFB7C4471BBD343B005148C6 /* IRTestFieldDrag.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFB7C4351BBD279C005148C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFB7C43E1BBD279C005148C6 /* iReSignAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EFB7C43B1BBD279C005148C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EFB7C4281BBD279C005148C6 /* iReSignApp */;
+			targetProxy = EFB7C43A1BBD279C005148C6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EFB7C4311BBD279C005148C6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EFB7C4321BBD279C005148C6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EFB7C4201BBD26C7005148C6 /* Debug */ = {
@@ -217,6 +400,58 @@
 			};
 			name = Release;
 		};
+		EFB7C4411BBD279C005148C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = iReSignApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colharris.iReSignApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EFB7C4421BBD279C005148C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = iReSignApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colharris.iReSignApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EFB7C4441BBD279C005148C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = iReSignAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colharris.iReSignAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iReSignApp.app/Contents/MacOS/iReSignApp";
+			};
+			name = Debug;
+		};
+		EFB7C4451BBD279C005148C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = iReSignAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colharris.iReSignAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iReSignApp.app/Contents/MacOS/iReSignApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -234,6 +469,22 @@
 			buildConfigurations = (
 				EFB7C4231BBD26C7005148C6 /* Debug */,
 				EFB7C4241BBD26C7005148C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EFB7C4401BBD279C005148C6 /* Build configuration list for PBXNativeTarget "iReSignApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFB7C4411BBD279C005148C6 /* Debug */,
+				EFB7C4421BBD279C005148C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EFB7C4431BBD279C005148C6 /* Build configuration list for PBXNativeTarget "iReSignAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFB7C4441BBD279C005148C6 /* Debug */,
+				EFB7C4451BBD279C005148C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

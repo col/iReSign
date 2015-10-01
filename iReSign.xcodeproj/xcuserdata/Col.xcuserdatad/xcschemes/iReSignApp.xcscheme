@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EFB7C41A1BBD26C7005148C6"
-               BuildableName = "iReSign"
-               BlueprintName = "iReSign"
+               BlueprintIdentifier = "EFB7C4281BBD279C005148C6"
+               BuildableName = "iReSignApp.app"
+               BlueprintName = "iReSignApp"
                ReferencedContainer = "container:iReSign.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EFB7C41A1BBD26C7005148C6"
-            BuildableName = "iReSign"
-            BlueprintName = "iReSign"
+            BlueprintIdentifier = "EFB7C4281BBD279C005148C6"
+            BuildableName = "iReSignApp.app"
+            BlueprintName = "iReSignApp"
             ReferencedContainer = "container:iReSign.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EFB7C41A1BBD26C7005148C6"
-            BuildableName = "iReSign"
-            BlueprintName = "iReSign"
+            BlueprintIdentifier = "EFB7C4281BBD279C005148C6"
+            BuildableName = "iReSignApp.app"
+            BlueprintName = "iReSignApp"
             ReferencedContainer = "container:iReSign.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EFB7C41A1BBD26C7005148C6"
-            BuildableName = "iReSign"
-            BlueprintName = "iReSign"
+            BlueprintIdentifier = "EFB7C4281BBD279C005148C6"
+            BuildableName = "iReSignApp.app"
+            BlueprintName = "iReSignApp"
             ReferencedContainer = "container:iReSign.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
