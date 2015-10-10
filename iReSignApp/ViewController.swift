@@ -9,7 +9,17 @@
 import Cocoa
 
 class ViewController: NSViewController, NSComboBoxDataSource {
-
+    
+    let kKeyBundleIDPlistApp               = "CFBundleIdentifier"
+    let kKeyBundleIDPlistiTunesArtwork     = "softwareVersionBundleId"
+    let kKeyInfoPlistApplicationProperties = "ApplicationProperties"
+    let kKeyInfoPlistApplicationPath       = "ApplicationPath"
+    let kFrameworksDirName                 = "Frameworks"
+    let kPayloadDirName                    = "Payload"
+    let kProductsDirName                   = "Products"
+    let kInfoPlistFilename                 = "Info.plist"
+    let kiTunesMetadataFileName            = "iTunesMetadata"
+    
     @IBOutlet var pathField: IRTextFieldDrag!
     @IBOutlet var provisioningPathField: IRTextFieldDrag!
     @IBOutlet var entitlementField: IRTextFieldDrag!
@@ -24,8 +34,11 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     @IBOutlet var certComboBox: NSComboBox!
     
     var certComboBoxItems: [String]?
-    var codeSigningTools: CodeSigningTools?
+//    var codeSigningTools: CodeSigningTools?
     var controls: [NSControl] = []
+    
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let fileManager = NSFileManager.defaultManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +49,9 @@ class ViewController: NSViewController, NSComboBoxDataSource {
 
         flurry.alphaValue = 0.5
         
-        codeSigningTools = CodeSigningTools()
-        codeSigningTools?.getCertificates() { results in
+        GetCertsTask().getCerts() { results in
             self.updateCertComboBox(results)
         }
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
         
         if let entitlementPath = defaults.valueForKey("ENTITLEMENT_PATH") as? String {
             entitlementField.stringValue = entitlementPath
@@ -57,7 +67,7 @@ class ViewController: NSViewController, NSComboBoxDataSource {
             "codesign": "/usr/bin/codesign"
         ]
         for (name, path) in requiredUtilities {
-            if !NSFileManager.defaultManager().fileExistsAtPath(path) {
+            if !fileManager.fileExistsAtPath(path) {
                 showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "This app cannot run without the \(name) utility present at \(path)")
                 exit(0);
             }
@@ -83,7 +93,6 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         
         statusLabel.stringValue = "Signing Certificate IDs extracted"
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         if let certIndex = defaults.valueForKey("CERT_INDEX") as? NSNumber {
             let selectedIndex = certIndex.integerValue
             if selectedIndex != -1 {
@@ -98,6 +107,52 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     
     @IBAction func resign(sender: AnyObject) {
         print("resign")
+        
+        // Save preferences
+        defaults.setValue(NSNumber(integer: certComboBox.indexOfSelectedItem), forKey: "CERT_INDEX")
+        defaults.setValue(entitlementField.stringValue, forKey: "ENTITLEMENT_PATH")
+        defaults.setValue(provisioningPathField.stringValue, forKey: "MOBILEPROVISION_PATH")
+        defaults.setValue(bundleIDField.stringValue, forKey:"keyBundleIDChange")
+        defaults.synchronize()
+        
+        // Validations
+        guard let certificate = certComboBox.objectValue as? String else {
+            showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "You must choose an signing certificate from dropdown.")
+            enableControls()
+            statusLabel.stringValue = "Please try again"
+            return
+        }
+        
+        let pathExtension = (pathField.stringValue as NSString).pathExtension.lowercaseString
+        if pathExtension != "ipa" && pathExtension != "xcarchive" {
+            showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "You must choose an *.ipa or *.xcarchive file")
+            enableControls()
+            statusLabel.stringValue = "Please try again"
+            return
+        }
+        
+        disableControls()
+        
+        let bundleId = bundleIDField.stringValue
+        let provisioningPath = provisioningPathField.stringValue
+        let entitlementsPath = entitlementField.stringValue
+        
+        let resignTask = ResignTask(
+            sourcePath: pathField.stringValue,
+            certificate: certificate,
+            provisioningPath: provisioningPath == "" ? nil : provisioningPath,
+            entitlementsPath: entitlementsPath == "" ? nil : entitlementsPath,
+            bundleId: bundleId == "" ? nil : bundleId
+        )
+        resignTask.resign() { error in
+            self.statusLabel.hidden = false
+            if let error = error {
+                self.statusLabel.stringValue = error.localizedDescription
+            } else {
+                self.statusLabel.stringValue = "Resigned successfull!"
+            }
+        }
+  
     }
     
     @IBAction func browse(sender: AnyObject) {

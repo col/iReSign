@@ -103,7 +103,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ihe-cO-DZ5" customClass="IRTextFieldDrag">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ihe-cO-DZ5" customClass="IRTextFieldDrag" customModule="iReSignApp" customModuleProvider="target">
                                 <rect key="frame" x="20" y="265" width="318" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="318" id="KpZ-Qj-neA"/>
@@ -117,7 +117,7 @@
                                     <outlet property="nextKeyView" destination="A5x-nm-k09" id="jfM-hB-BJX"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zr2-kq-qWP" customClass="IRTextFieldDrag">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zr2-kq-qWP" customClass="IRTextFieldDrag" customModule="iReSignApp">
                                 <rect key="frame" x="20" y="205" width="318" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="/path/to/entitlements.plist" drawsBackground="YES" id="Y0d-uP-ha4">
                                     <font key="font" metaFont="system"/>
@@ -142,7 +142,7 @@
                                     <outlet property="nextKeyView" destination="jbK-8M-x11" id="VgI-oW-g5F"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jbK-8M-x11" customClass="IRTextFieldDrag">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jbK-8M-x11" customClass="IRTextFieldDrag" customModule="iReSignApp" customModuleProvider="target">
                                 <rect key="frame" x="20" y="235" width="318" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="/path/to/.mobileprovision" drawsBackground="YES" id="lWw-Uz-YNk">
                                     <font key="font" metaFont="system"/>
@@ -207,7 +207,7 @@
                             <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="nlk-UG-zZi">
                                 <rect key="frame" x="20" y="113" width="16" height="16"/>
                             </progressIndicator>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eYf-rN-BdL" customClass="IRTextFieldDrag">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eYf-rN-BdL" customClass="IRTextFieldDrag" customModule="iReSignApp">
                                 <rect key="frame" x="20" y="174" width="318" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="com.companyname.appname" drawsBackground="YES" id="HbQ-c3-Xsw">
                                     <font key="font" metaFont="system"/>

@@ -1,40 +1,43 @@
 //
-//  IRCertificates.swift
+//  GetCertsTask.swift
 //  iReSign
 //
-//  Created by Colin Harris on 1/10/15.
+//  Created by Colin Harris on 2/10/15.
 //  Copyright © 2015 Colin Harris. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
-typealias CompletionHandler = ([String]?) -> Void
+typealias GetCertsCallback = ([String]?) -> Void
 
-class CodeSigningTools: NSObject {
+class GetCertsTask: NSObject {
     
-    var certTask: NSTask?
+    let task: NSTask
+    var callback: GetCertsCallback?
     var results: [String]?
-    var completionHandler: CompletionHandler?
     
-    func getCertificates(completionHandler: CompletionHandler?) {
-        self.completionHandler = completionHandler
-        
-        certTask = NSTask()
-        certTask?.launchPath = "/usr/bin/security"
-        certTask?.arguments = ["find-identity", "-v", "-p", "codesigning"]
+    override init() {
+        task = NSTask()
+        task.launchPath = "/usr/bin/security"
+        task.arguments = ["find-identity", "-v", "-p", "codesigning"]
+//        super.init()
+    }
+    
+    func getCerts(callback: GetCertsCallback?) {
+        self.callback = callback
         
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "checkCerts:", userInfo: nil, repeats: true)
         
         let pipe = NSPipe()
-        certTask?.standardOutput = pipe
-        certTask?.standardError = pipe
+        task.standardOutput = pipe
+        task.standardError = pipe
         let handle = pipe.fileHandleForReading
         
-        certTask?.launch()
+        task.launch()
         
         NSThread.detachNewThreadSelector("watchGetCerts:", toTarget: self, withObject: handle)
     }
- 
+    
     func watchGetCerts(streamHandle: NSFileHandle) {
         autoreleasepool {
             let data = NSString(data: streamHandle.readDataToEndOfFile(), encoding: NSASCIIStringEncoding)
@@ -53,11 +56,10 @@ class CodeSigningTools: NSObject {
     }
     
     func checkCerts(timer: NSTimer) {
-        if !certTask!.running {
+        if !task.running {
             timer.invalidate()
-            certTask = nil
-            completionHandler?(results)
+            callback?(results)
         }
     }
-
+    
 }

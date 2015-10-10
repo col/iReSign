@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF1C642F1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1C642E1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EF2CA8501BC0061E00A45FDD /* IROperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA84F1BC0061E00A45FDD /* IROperation.swift */; settings = {ASSET_TAGS = (); }; };
+		EF2CA8521BC0233200A45FDD /* ResignApplicationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EF2CA8541BC028D800A45FDD /* CodeSignTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA8531BC028D800A45FDD /* CodeSignTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EF2CA8561BC0A56800A45FDD /* VerifyCodeSignTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA8551BC0A56800A45FDD /* VerifyCodeSignTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EF2CA8591BC0A70E00A45FDD /* ZipTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA8581BC0A70E00A45FDD /* ZipTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EF2CA85B1BC0AC9200A45FDD /* ChangeProvisioningProfileTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA85A1BC0AC9200A45FDD /* ChangeProvisioningProfileTask.swift */; settings = {ASSET_TAGS = (); }; };
 		EFB7C41F1BBD26C7005148C6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C41E1BBD26C7005148C6 /* main.swift */; };
 		EFB7C42C1BBD279C005148C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C42B1BBD279C005148C6 /* AppDelegate.swift */; };
 		EFB7C42E1BBD279C005148C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C42D1BBD279C005148C6 /* ViewController.swift */; };
 		EFB7C4301BBD279C005148C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFB7C42F1BBD279C005148C6 /* Assets.xcassets */; };
 		EFB7C4331BBD279C005148C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFB7C4311BBD279C005148C6 /* Main.storyboard */; };
 		EFB7C43E1BBD279C005148C6 /* iReSignAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C43D1BBD279C005148C6 /* iReSignAppTests.swift */; };
-		EFB7C4471BBD343B005148C6 /* IRTestFieldDrag.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4461BBD343B005148C6 /* IRTestFieldDrag.swift */; settings = {ASSET_TAGS = (); }; };
+		EFB7C4471BBD343B005148C6 /* IRTextFieldDrag.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4461BBD343B005148C6 /* IRTextFieldDrag.swift */; settings = {ASSET_TAGS = (); }; };
 		EFB7C4491BBD3773005148C6 /* IRHelpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */; settings = {ASSET_TAGS = (); }; };
-		EFB7C44C1BBD696E005148C6 /* IRCertificates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C44B1BBD696E005148C6 /* IRCertificates.swift */; settings = {ASSET_TAGS = (); }; };
+		EFB7C44E1BBD8F56005148C6 /* UnzipTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C44D1BBD8F56005148C6 /* UnzipTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EFB7C4501BBE1823005148C6 /* GetCertsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C44F1BBE1823005148C6 /* GetCertsTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EFB7C4521BBE2212005148C6 /* ResignTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4511BBE2212005148C6 /* ResignTask.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +50,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EF1C642E1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeBundleIdTask.swift; path = Signing/ChangeBundleIdTask.swift; sourceTree = "<group>"; };
+		EF2CA84F1BC0061E00A45FDD /* IROperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IROperation.swift; sourceTree = "<group>"; };
+		EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResignApplicationTask.swift; path = Signing/ResignApplicationTask.swift; sourceTree = "<group>"; };
+		EF2CA8531BC028D800A45FDD /* CodeSignTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeSignTask.swift; path = Signing/CodeSignTask.swift; sourceTree = "<group>"; };
+		EF2CA8551BC0A56800A45FDD /* VerifyCodeSignTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerifyCodeSignTask.swift; path = Signing/VerifyCodeSignTask.swift; sourceTree = "<group>"; };
+		EF2CA8581BC0A70E00A45FDD /* ZipTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipTask.swift; sourceTree = "<group>"; };
+		EF2CA85A1BC0AC9200A45FDD /* ChangeProvisioningProfileTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeProvisioningProfileTask.swift; path = Signing/ChangeProvisioningProfileTask.swift; sourceTree = "<group>"; };
 		EFB7C41B1BBD26C7005148C6 /* iReSign */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = iReSign; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFB7C41E1BBD26C7005148C6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		EFB7C4291BBD279C005148C6 /* iReSignApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iReSignApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,9 +68,11 @@
 		EFB7C4391BBD279C005148C6 /* iReSignAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iReSignAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFB7C43D1BBD279C005148C6 /* iReSignAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iReSignAppTests.swift; sourceTree = "<group>"; };
 		EFB7C43F1BBD279C005148C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EFB7C4461BBD343B005148C6 /* IRTestFieldDrag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRTestFieldDrag.swift; sourceTree = "<group>"; };
+		EFB7C4461BBD343B005148C6 /* IRTextFieldDrag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRTextFieldDrag.swift; sourceTree = "<group>"; };
 		EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRHelpWindow.swift; sourceTree = "<group>"; };
-		EFB7C44B1BBD696E005148C6 /* IRCertificates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IRCertificates.swift; path = Signing/IRCertificates.swift; sourceTree = "<group>"; };
+		EFB7C44D1BBD8F56005148C6 /* UnzipTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnzipTask.swift; path = Signing/UnzipTask.swift; sourceTree = "<group>"; };
+		EFB7C44F1BBE1823005148C6 /* GetCertsTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetCertsTask.swift; path = Signing/GetCertsTask.swift; sourceTree = "<group>"; };
+		EFB7C4511BBE2212005148C6 /* ResignTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResignTask.swift; path = Signing/ResignTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +100,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF2CA8571BC0A6F300A45FDD /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				EF1C642E1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift */,
+				EFB7C44D1BBD8F56005148C6 /* UnzipTask.swift */,
+				EF2CA84F1BC0061E00A45FDD /* IROperation.swift */,
+				EF2CA8531BC028D800A45FDD /* CodeSignTask.swift */,
+				EF2CA8551BC0A56800A45FDD /* VerifyCodeSignTask.swift */,
+				EF2CA8581BC0A70E00A45FDD /* ZipTask.swift */,
+				EF2CA85A1BC0AC9200A45FDD /* ChangeProvisioningProfileTask.swift */,
+			);
+			name = Tasks;
+			sourceTree = "<group>";
+		};
 		EFB7C4121BBD26C7005148C6 = {
 			isa = PBXGroup;
 			children = (
@@ -119,7 +151,7 @@
 				EFB7C42F1BBD279C005148C6 /* Assets.xcassets */,
 				EFB7C4311BBD279C005148C6 /* Main.storyboard */,
 				EFB7C4341BBD279C005148C6 /* Info.plist */,
-				EFB7C4461BBD343B005148C6 /* IRTestFieldDrag.swift */,
+				EFB7C4461BBD343B005148C6 /* IRTextFieldDrag.swift */,
 				EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */,
 			);
 			path = iReSignApp;
@@ -137,7 +169,10 @@
 		EFB7C44A1BBD6929005148C6 /* Signing */ = {
 			isa = PBXGroup;
 			children = (
-				EFB7C44B1BBD696E005148C6 /* IRCertificates.swift */,
+				EF2CA8571BC0A6F300A45FDD /* Tasks */,
+				EFB7C44F1BBE1823005148C6 /* GetCertsTask.swift */,
+				EFB7C4511BBE2212005148C6 /* ResignTask.swift */,
+				EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */,
 			);
 			name = Signing;
 			sourceTree = "<group>";
@@ -271,10 +306,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFB7C42E1BBD279C005148C6 /* ViewController.swift in Sources */,
+				EF1C642F1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift in Sources */,
+				EF2CA8591BC0A70E00A45FDD /* ZipTask.swift in Sources */,
 				EFB7C4491BBD3773005148C6 /* IRHelpWindow.swift in Sources */,
 				EFB7C42C1BBD279C005148C6 /* AppDelegate.swift in Sources */,
-				EFB7C44C1BBD696E005148C6 /* IRCertificates.swift in Sources */,
-				EFB7C4471BBD343B005148C6 /* IRTestFieldDrag.swift in Sources */,
+				EFB7C44E1BBD8F56005148C6 /* UnzipTask.swift in Sources */,
+				EF2CA8541BC028D800A45FDD /* CodeSignTask.swift in Sources */,
+				EF2CA85B1BC0AC9200A45FDD /* ChangeProvisioningProfileTask.swift in Sources */,
+				EF2CA8521BC0233200A45FDD /* ResignApplicationTask.swift in Sources */,
+				EFB7C4471BBD343B005148C6 /* IRTextFieldDrag.swift in Sources */,
+				EFB7C4521BBE2212005148C6 /* ResignTask.swift in Sources */,
+				EFB7C4501BBE1823005148C6 /* GetCertsTask.swift in Sources */,
+				EF2CA8501BC0061E00A45FDD /* IROperation.swift in Sources */,
+				EF2CA8561BC0A56800A45FDD /* VerifyCodeSignTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +515,7 @@
 				EFB7C4241BBD26C7005148C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFB7C4401BBD279C005148C6 /* Build configuration list for PBXNativeTarget "iReSignApp" */ = {
 			isa = XCConfigurationList;
@@ -479,6 +524,7 @@
 				EFB7C4421BBD279C005148C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFB7C4431BBD279C005148C6 /* Build configuration list for PBXNativeTarget "iReSignAppTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +533,7 @@
 				EFB7C4451BBD279C005148C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
