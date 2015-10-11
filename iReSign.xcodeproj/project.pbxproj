@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EF1C642F1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1C642E1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift */; settings = {ASSET_TAGS = (); }; };
+		EF1F35ED1BCA0062002E0A81 /* FindCertificates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1F35EC1BCA0062002E0A81 /* FindCertificates.swift */; settings = {ASSET_TAGS = (); }; };
 		EF2CA8501BC0061E00A45FDD /* IROperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA84F1BC0061E00A45FDD /* IROperation.swift */; settings = {ASSET_TAGS = (); }; };
 		EF2CA8521BC0233200A45FDD /* ResignApplicationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */; settings = {ASSET_TAGS = (); }; };
 		EF2CA8541BC028D800A45FDD /* CodeSignTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2CA8531BC028D800A45FDD /* CodeSignTask.swift */; settings = {ASSET_TAGS = (); }; };
@@ -23,7 +24,6 @@
 		EFB7C4471BBD343B005148C6 /* IRTextFieldDrag.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4461BBD343B005148C6 /* IRTextFieldDrag.swift */; settings = {ASSET_TAGS = (); }; };
 		EFB7C4491BBD3773005148C6 /* IRHelpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */; settings = {ASSET_TAGS = (); }; };
 		EFB7C44E1BBD8F56005148C6 /* UnzipTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C44D1BBD8F56005148C6 /* UnzipTask.swift */; settings = {ASSET_TAGS = (); }; };
-		EFB7C4501BBE1823005148C6 /* GetCertsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C44F1BBE1823005148C6 /* GetCertsTask.swift */; settings = {ASSET_TAGS = (); }; };
 		EFB7C4521BBE2212005148C6 /* ResignTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB7C4511BBE2212005148C6 /* ResignTask.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -51,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		EF1C642E1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeBundleIdTask.swift; path = Signing/ChangeBundleIdTask.swift; sourceTree = "<group>"; };
+		EF1F35EC1BCA0062002E0A81 /* FindCertificates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FindCertificates.swift; path = Signing/FindCertificates.swift; sourceTree = "<group>"; };
 		EF2CA84F1BC0061E00A45FDD /* IROperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IROperation.swift; sourceTree = "<group>"; };
 		EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResignApplicationTask.swift; path = Signing/ResignApplicationTask.swift; sourceTree = "<group>"; };
 		EF2CA8531BC028D800A45FDD /* CodeSignTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeSignTask.swift; path = Signing/CodeSignTask.swift; sourceTree = "<group>"; };
@@ -71,7 +72,6 @@
 		EFB7C4461BBD343B005148C6 /* IRTextFieldDrag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRTextFieldDrag.swift; sourceTree = "<group>"; };
 		EFB7C4481BBD3773005148C6 /* IRHelpWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IRHelpWindow.swift; sourceTree = "<group>"; };
 		EFB7C44D1BBD8F56005148C6 /* UnzipTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnzipTask.swift; path = Signing/UnzipTask.swift; sourceTree = "<group>"; };
-		EFB7C44F1BBE1823005148C6 /* GetCertsTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetCertsTask.swift; path = Signing/GetCertsTask.swift; sourceTree = "<group>"; };
 		EFB7C4511BBE2212005148C6 /* ResignTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResignTask.swift; path = Signing/ResignTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +110,7 @@
 				EF2CA8551BC0A56800A45FDD /* VerifyCodeSignTask.swift */,
 				EF2CA8581BC0A70E00A45FDD /* ZipTask.swift */,
 				EF2CA85A1BC0AC9200A45FDD /* ChangeProvisioningProfileTask.swift */,
+				EF1F35EC1BCA0062002E0A81 /* FindCertificates.swift */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -170,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				EF2CA8571BC0A6F300A45FDD /* Tasks */,
-				EFB7C44F1BBE1823005148C6 /* GetCertsTask.swift */,
 				EFB7C4511BBE2212005148C6 /* ResignTask.swift */,
 				EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */,
 			);
@@ -311,12 +311,12 @@
 				EFB7C4491BBD3773005148C6 /* IRHelpWindow.swift in Sources */,
 				EFB7C42C1BBD279C005148C6 /* AppDelegate.swift in Sources */,
 				EFB7C44E1BBD8F56005148C6 /* UnzipTask.swift in Sources */,
+				EF1F35ED1BCA0062002E0A81 /* FindCertificates.swift in Sources */,
 				EF2CA8541BC028D800A45FDD /* CodeSignTask.swift in Sources */,
 				EF2CA85B1BC0AC9200A45FDD /* ChangeProvisioningProfileTask.swift in Sources */,
 				EF2CA8521BC0233200A45FDD /* ResignApplicationTask.swift in Sources */,
 				EFB7C4471BBD343B005148C6 /* IRTextFieldDrag.swift in Sources */,
 				EFB7C4521BBE2212005148C6 /* ResignTask.swift in Sources */,
-				EFB7C4501BBE1823005148C6 /* GetCertsTask.swift in Sources */,
 				EF2CA8501BC0061E00A45FDD /* IROperation.swift in Sources */,
 				EF2CA8561BC0A56800A45FDD /* VerifyCodeSignTask.swift in Sources */,
 			);

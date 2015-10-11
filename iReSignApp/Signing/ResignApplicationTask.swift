@@ -47,7 +47,7 @@ class ResignApplicationTask: IROperation {
         
         state = .Executing
         
-        if let appPath = appPath {
+        if let _ = appPath {
             signApplication()
         }
         

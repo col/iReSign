@@ -10,15 +10,11 @@ import Cocoa
 
 class ViewController: NSViewController, NSComboBoxDataSource {
     
-    let kKeyBundleIDPlistApp               = "CFBundleIdentifier"
-    let kKeyBundleIDPlistiTunesArtwork     = "softwareVersionBundleId"
-    let kKeyInfoPlistApplicationProperties = "ApplicationProperties"
-    let kKeyInfoPlistApplicationPath       = "ApplicationPath"
-    let kFrameworksDirName                 = "Frameworks"
-    let kPayloadDirName                    = "Payload"
-    let kProductsDirName                   = "Products"
-    let kInfoPlistFilename                 = "Info.plist"
-    let kiTunesMetadataFileName            = "iTunesMetadata"
+    let EntitlementPathPrefKey = "ENTITLEMENT_PATH"
+    let ProvisioningPathPrefKey = "PROVISIONING_PATH"
+    let CertificateNamePrefKey = "CERTIFICATE_NAME"
+    let BundleIDPrefKey = "BUNDLE_ID"
+    let ChangeBundleIDPrefKey = "CHANGE_BUNDLE_ID"
     
     @IBOutlet var pathField: IRTextFieldDrag!
     @IBOutlet var provisioningPathField: IRTextFieldDrag!
@@ -34,33 +30,37 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     @IBOutlet var certComboBox: NSComboBox!
     
     var certComboBoxItems: [String]?
-//    var codeSigningTools: CodeSigningTools?
     var controls: [NSControl] = []
     
     let defaults = NSUserDefaults.standardUserDefaults()
     let fileManager = NSFileManager.defaultManager()
     
+    let operationQueue = NSOperationQueue()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        controls = [ pathField, entitlementField, browseButton, resignButton,
-            provisioningBrowseButton, provisioningPathField,
-            changeBundleIDCheckbox, bundleIDField, certComboBox]
+        controls = [
+            pathField, browseButton,
+            entitlementField, entitlementBrowseButton,
+            provisioningPathField, provisioningBrowseButton,
+            bundleIDField, changeBundleIDCheckbox,
+            certComboBox, resignButton
+        ]
 
         flurry.alphaValue = 0.5
         
-        GetCertsTask().getCerts() { results in
+        let findCertsTask = FindCertificates() { results in
             self.updateCertComboBox(results)
         }
+        operationQueue.addOperation(findCertsTask)
         
-        if let entitlementPath = defaults.valueForKey("ENTITLEMENT_PATH") as? String {
-            entitlementField.stringValue = entitlementPath
-        }
-        
-        if let provisioningPath = defaults.valueForKey("MOBILEPROVISION_PATH") as? String {
-            provisioningPathField.stringValue = provisioningPath
-        }
-        
+        loadDefaultValues()
+        checkForDependencies()
+        enableControls()
+    }
+    
+    private func checkForDependencies() {
         let requiredUtilities = [
             "zip": "/usr/bin/zip",
             "unzip": "/usr/bin/unzip",
@@ -74,13 +74,7 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         }
     }
 
-    override var representedObject: AnyObject? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
-    func updateCertComboBox(certificates: [String]?) {
+    private func updateCertComboBox(certificates: [String]?) {
         guard let certificates = certificates where certificates.count > 0 else {
             showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "Getting Certificate ID's failed")
             enableControls()
@@ -93,70 +87,57 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         
         statusLabel.stringValue = "Signing Certificate IDs extracted"
         
-        if let certIndex = defaults.valueForKey("CERT_INDEX") as? NSNumber {
-            let selectedIndex = certIndex.integerValue
-            if selectedIndex != -1 {
-                let selectedItem = certificates[selectedIndex]
-                certComboBox.objectValue = selectedItem
-                certComboBox.selectItemAtIndex(selectedIndex)
+        if let certificateName = defaults.valueForKey(CertificateNamePrefKey) as? String {
+            if let index = certComboBoxItems!.indexOf(certificateName) {
+                certComboBox.objectValue = certificateName
+                certComboBox.selectItemAtIndex(index)
             }
         }
         
         enableControls()
     }
     
+    // MARK: Interface Actions
+    
     @IBAction func resign(sender: AnyObject) {
         print("resign")
         
-        // Save preferences
-        defaults.setValue(NSNumber(integer: certComboBox.indexOfSelectedItem), forKey: "CERT_INDEX")
-        defaults.setValue(entitlementField.stringValue, forKey: "ENTITLEMENT_PATH")
-        defaults.setValue(provisioningPathField.stringValue, forKey: "MOBILEPROVISION_PATH")
-        defaults.setValue(bundleIDField.stringValue, forKey:"keyBundleIDChange")
-        defaults.synchronize()
-        
-        // Validations
-        guard let certificate = certComboBox.objectValue as? String else {
-            showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "You must choose an signing certificate from dropdown.")
-            enableControls()
-            statusLabel.stringValue = "Please try again"
-            return
-        }
-        
-        let pathExtension = (pathField.stringValue as NSString).pathExtension.lowercaseString
-        if pathExtension != "ipa" && pathExtension != "xcarchive" {
-            showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "You must choose an *.ipa or *.xcarchive file")
-            enableControls()
-            statusLabel.stringValue = "Please try again"
-            return
-        }
-        
         disableControls()
+        showProgress()
+        savePreferences()
         
-        let bundleId = bundleIDField.stringValue
-        let provisioningPath = provisioningPathField.stringValue
-        let entitlementsPath = entitlementField.stringValue
+        if !checkRequiredFields() {
+            enableControls()
+            hideProgress()
+            statusLabel.stringValue = "Please try again"
+            return
+        }
+        
+        let bundleId: String? = bundleIDField.stringValue == "" ? nil : bundleIDField.stringValue
+        let provisioningPath: String? = provisioningPathField.stringValue == "" ? nil : provisioningPathField.stringValue
+        let entitlementsPath: String? = entitlementField.stringValue == "" ? nil : entitlementField.stringValue
         
         let resignTask = ResignTask(
             sourcePath: pathField.stringValue,
-            certificate: certificate,
-            provisioningPath: provisioningPath == "" ? nil : provisioningPath,
-            entitlementsPath: entitlementsPath == "" ? nil : entitlementsPath,
-            bundleId: bundleId == "" ? nil : bundleId
+            certificate: certComboBox.objectValue as! String,
+            provisioningPath: provisioningPath,
+            entitlementsPath: entitlementsPath,
+            bundleId: bundleId
         )
+        
         resignTask.resign() { error in
+            self.hideProgress()
             self.statusLabel.hidden = false
             if let error = error {
                 self.statusLabel.stringValue = error.localizedDescription
             } else {
-                self.statusLabel.stringValue = "Resigned successfull!"
+                self.statusLabel.stringValue = "Resign Successfull!"
             }
         }
   
     }
     
     @IBAction func browse(sender: AnyObject) {
-        print("browse")
         openBrowseWindow(["ipa", "IPA", "xcarchive"]) { filePath in
             if let path = filePath {
                 self.pathField.stringValue = path
@@ -165,7 +146,6 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     }
     
     @IBAction func provisioningBrowse(sender: AnyObject) {
-        print("provisioningBrowse")
         openBrowseWindow(["mobileprovision", "MOBILEPROVISION"]) { filePath in
             if let path = filePath {
                 self.provisioningPathField.stringValue = path
@@ -174,7 +154,6 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     }
     
     @IBAction func entitlementBrowse(sender: AnyObject) {
-        print("entitlementBrowse")
         openBrowseWindow(["plist", "PLIST"]) { filePath in
             if let path = filePath {
                 self.entitlementField.stringValue = path
@@ -183,12 +162,69 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     }
     
     @IBAction func changeBundleIDPressed(sender: NSButton) {
-        print("changeBundleIDPressed")
         if sender != changeBundleIDCheckbox {
             return;
         }
         
         bundleIDField.enabled = changeBundleIDCheckbox.state == NSOnState;
+    }
+    
+    // MARK: Certificate Combo Box Data Source Methods
+    
+    func numberOfItemsInComboBox(aComboBox: NSComboBox) -> Int {
+        return certComboBoxItems?.count ?? 0
+    }
+    
+    func comboBox(aComboBox: NSComboBox, objectValueForItemAtIndex index: Int) -> AnyObject {
+        return certComboBoxItems?[index] ?? ""
+    }
+    
+    // MARK: Private Methods
+    
+    private func loadDefaultValues() {
+        if let entitlementPath = defaults.valueForKey(EntitlementPathPrefKey) as? String {
+            print("Default Entitlements Path: \(entitlementPath)")
+            entitlementField.stringValue = entitlementPath
+        }
+        if let provisioningPath = defaults.valueForKey(ProvisioningPathPrefKey) as? String {
+            print("Default Provisioning Path: \(provisioningPath)")
+            provisioningPathField.stringValue = provisioningPath
+        }
+        if let bundleId = defaults.valueForKey(BundleIDPrefKey) as? String {
+            print("Default Bundle ID: \(bundleId)")
+            bundleIDField.stringValue = bundleId
+        }
+        if let changeBundleId = defaults.valueForKey(ChangeBundleIDPrefKey) as? NSNumber {
+            print("Default Change Bundle ID: \(changeBundleId)")
+            changeBundleIDCheckbox.state = changeBundleId.boolValue ? NSOnState : NSOffState
+        }
+    }
+    
+    private func savePreferences() {
+        if let certificate = certComboBox.objectValue as? String {
+            defaults.setValue(certificate, forKey: CertificateNamePrefKey)
+        }
+        defaults.setValue(entitlementField.stringValue, forKey: EntitlementPathPrefKey)
+        defaults.setValue(provisioningPathField.stringValue, forKey: ProvisioningPathPrefKey)
+        defaults.setValue(bundleIDField.stringValue, forKey: BundleIDPrefKey)
+        defaults.setValue(NSNumber(bool: changeBundleIDCheckbox.state == NSOnState), forKey: BundleIDPrefKey)
+        defaults.synchronize()
+    }
+    
+    private func checkRequiredFields() -> Bool {
+        let certificate = certComboBox.objectValue as? String
+        if certificate == nil {
+            showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "You must choose an signing certificate from dropdown.")
+            return false
+        }
+        
+        let pathExtension = (pathField.stringValue as NSString).pathExtension.lowercaseString
+        if pathExtension != "ipa" && pathExtension != "xcarchive" {
+            showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "You must choose an *.ipa or *.xcarchive file")
+            return false
+        }
+        
+        return true
     }
     
     private func openBrowseWindow(allowedFileTypes: [String], callback: (String?) -> Void) {
@@ -210,29 +246,25 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         for control in controls {
             control.enabled = true
         }
-        
-        flurry.stopAnimation(self)
-        flurry.alphaValue = 0.5
     }
     
     private func disableControls() {
         for control in controls {
             control.enabled = false
         }
-        
+    }
+    
+    private func hideProgress() {
+        flurry.stopAnimation(self)
+        flurry.alphaValue = 0.5
+    }
+    
+    private func showProgress() {
         flurry.startAnimation(self)
         flurry.alphaValue = 1.0
     }
     
-    func numberOfItemsInComboBox(aComboBox: NSComboBox) -> Int {
-        return certComboBoxItems?.count ?? 0
-    }
-
-    func comboBox(aComboBox: NSComboBox, objectValueForItemAtIndex index: Int) -> AnyObject {
-        return certComboBoxItems?[index] ?? ""
-    }
-    
-    func showAlertOfKind(style: NSAlertStyle, withTitle title: String, andMessage message: String) {
+    private func showAlertOfKind(style: NSAlertStyle, withTitle title: String, andMessage message: String) {
         let alert = NSAlert()
         alert.addButtonWithTitle("OK")
         alert.messageText = title

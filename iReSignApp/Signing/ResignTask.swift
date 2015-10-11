@@ -120,7 +120,10 @@ class ResignTask: NSObject {
                 }
                 
                 let zipTask = ZipTask(baseDir: self.workingPath, destinationPath: self.destinationPath)
-                zipTask.completionBlock = { print("Zip complete") }
+                zipTask.completionBlock = {
+                    print("Zip complete")
+                    self.callback?(nil)
+                }
                 self.operationQueue.addOperation(zipTask)
             }
         }

@@ -35,7 +35,6 @@ class VerifyCodeSignTask: IROperation {
         task.standardError = pipe
         let handle = pipe.fileHandleForReading
         
-//        print("\(task.launchPath) \(task.arguments!)")
         task.launch()
         
         let _ = NSString(data: handle.readDataToEndOfFile(), encoding: NSASCIIStringEncoding)
@@ -43,9 +42,7 @@ class VerifyCodeSignTask: IROperation {
         while(task.running) {
             NSThread.sleepForTimeInterval(1.0)
         }
-        
-//        print("Codesigning result: \(result!)")
-        
+                
         state = .Finished
     }
     

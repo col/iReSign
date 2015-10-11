@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
@@ -80,12 +80,13 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="iReSign" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="620" y="405" width="480" height="200"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="480" height="200"/>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -100,14 +101,12 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="iReSignApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="aZW-FN-e6g">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ihe-cO-DZ5" customClass="IRTextFieldDrag" customModule="iReSignApp" customModuleProvider="target">
-                                <rect key="frame" x="20" y="265" width="318" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="318" id="KpZ-Qj-neA"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="165" width="318" height="22"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="/path/to/app.ipa or /path/to/app.xcarchive" drawsBackground="YES" id="Tdc-vG-kaa">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -118,7 +117,8 @@
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zr2-kq-qWP" customClass="IRTextFieldDrag" customModule="iReSignApp">
-                                <rect key="frame" x="20" y="205" width="318" height="22"/>
+                                <rect key="frame" x="20" y="105" width="318" height="22"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="/path/to/entitlements.plist" drawsBackground="YES" id="Y0d-uP-ha4">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -129,10 +129,11 @@
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A5x-nm-k09">
-                                <rect key="frame" x="340" y="258" width="96" height="32"/>
+                                <rect key="frame" x="340" y="158" width="96" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="YZn-cU-1km"/>
                                 </constraints>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fGw-xc-QJY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -143,7 +144,8 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jbK-8M-x11" customClass="IRTextFieldDrag" customModule="iReSignApp" customModuleProvider="target">
-                                <rect key="frame" x="20" y="235" width="318" height="22"/>
+                                <rect key="frame" x="20" y="135" width="318" height="22"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="/path/to/.mobileprovision" drawsBackground="YES" id="lWw-Uz-YNk">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -154,10 +156,11 @@
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t9x-nz-c54">
-                                <rect key="frame" x="340" y="228" width="96" height="32"/>
+                                <rect key="frame" x="340" y="128" width="96" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="AcE-Nq-U1h"/>
                                 </constraints>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lFq-Ts-6GA">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -168,10 +171,11 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Znj-Mv-CFd">
-                                <rect key="frame" x="340" y="198" width="96" height="32"/>
+                                <rect key="frame" x="340" y="98" width="96" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="DgV-Cv-CDM"/>
                                 </constraints>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dhf-YH-DyE">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -182,10 +186,8 @@
                                 </connections>
                             </button>
                             <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BOb-1y-5OS">
-                                <rect key="frame" x="42" y="113" width="188" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="184" id="62O-Xi-2W4"/>
-                                </constraints>
+                                <rect key="frame" x="42" y="13" width="206" height="17"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="Please wait" id="uYt-Ht-Mw7">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -193,7 +195,8 @@
                                 </textFieldCell>
                             </textField>
                             <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QvH-Ph-dYu">
-                                <rect key="frame" x="20" y="142" width="321" height="26"/>
+                                <rect key="frame" x="20" y="42" width="321" height="26"/>
+                                <animations/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Select a signing certificate" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="DVf-PW-wte">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -204,11 +207,13 @@
                                     <outlet property="nextKeyView" destination="RoG-Kd-EBy" id="WLp-x0-e3w"/>
                                 </connections>
                             </comboBox>
-                            <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="nlk-UG-zZi">
-                                <rect key="frame" x="20" y="113" width="16" height="16"/>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="nlk-UG-zZi">
+                                <rect key="frame" x="20" y="13" width="16" height="16"/>
+                                <animations/>
                             </progressIndicator>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eYf-rN-BdL" customClass="IRTextFieldDrag" customModule="iReSignApp">
-                                <rect key="frame" x="20" y="174" width="318" height="22"/>
+                                <rect key="frame" x="20" y="74" width="318" height="22"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="com.companyname.appname" drawsBackground="YES" id="HbQ-c3-Xsw">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -219,10 +224,11 @@
                                 </connections>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="ytv-4v-2jA">
-                                <rect key="frame" x="344" y="176" width="88" height="18"/>
+                                <rect key="frame" x="344" y="76" width="88" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="K9B-ZI-22U"/>
                                 </constraints>
+                                <animations/>
                                 <buttonCell key="cell" type="check" title="Change ID" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Gar-QW-uPY">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -233,10 +239,11 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RoG-Kd-EBy">
-                                <rect key="frame" x="340" y="106" width="96" height="32"/>
+                                <rect key="frame" x="340" y="6" width="96" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="s1z-ge-h4s"/>
                                 </constraints>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="ReSign!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Mp7-GY-PYf">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -257,11 +264,13 @@
                             <constraint firstItem="jbK-8M-x11" firstAttribute="bottom" secondItem="t9x-nz-c54" secondAttribute="bottom" id="BGZ-ej-LYo"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="trailing" secondItem="Zr2-kq-qWP" secondAttribute="trailing" id="BXs-PT-i7h"/>
                             <constraint firstItem="jbK-8M-x11" firstAttribute="trailing" secondItem="Ihe-cO-DZ5" secondAttribute="trailing" id="Bgj-kP-Z24"/>
+                            <constraint firstAttribute="trailing" secondItem="ytv-4v-2jA" secondAttribute="trailing" constant="20" symbolic="YES" id="Dkx-KK-zhO"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="trailing" secondItem="QvH-Ph-dYu" secondAttribute="trailing" id="FK0-53-l92"/>
                             <constraint firstItem="BOb-1y-5OS" firstAttribute="leading" secondItem="nlk-UG-zZi" secondAttribute="trailing" constant="8" symbolic="YES" id="FXe-lt-TEz"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="leading" secondItem="QvH-Ph-dYu" secondAttribute="leading" id="GpK-ZB-ZJj"/>
                             <constraint firstItem="Ihe-cO-DZ5" firstAttribute="leading" secondItem="aZW-FN-e6g" secondAttribute="leading" constant="20" symbolic="YES" id="K9n-WX-R3y"/>
                             <constraint firstAttribute="trailing" secondItem="A5x-nm-k09" secondAttribute="trailing" constant="20" symbolic="YES" id="Kib-yb-KqK"/>
+                            <constraint firstAttribute="trailing" secondItem="t9x-nz-c54" secondAttribute="trailing" constant="20" symbolic="YES" id="LDn-dh-lLJ"/>
                             <constraint firstItem="Ihe-cO-DZ5" firstAttribute="top" secondItem="aZW-FN-e6g" secondAttribute="top" constant="13" id="NiL-AV-Pr3"/>
                             <constraint firstItem="Zr2-kq-qWP" firstAttribute="leading" secondItem="jbK-8M-x11" secondAttribute="leading" id="REA-Ax-Mnw"/>
                             <constraint firstItem="A5x-nm-k09" firstAttribute="bottom" secondItem="Ihe-cO-DZ5" secondAttribute="bottom" id="Szk-Qy-VuX"/>
@@ -272,10 +281,15 @@
                             <constraint firstItem="QvH-Ph-dYu" firstAttribute="top" secondItem="eYf-rN-BdL" secondAttribute="bottom" constant="8" symbolic="YES" id="Y5e-3x-2i0"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="top" secondItem="Zr2-kq-qWP" secondAttribute="bottom" constant="9" id="Zh2-Jc-DOZ"/>
                             <constraint firstItem="Znj-Mv-CFd" firstAttribute="leading" secondItem="Zr2-kq-qWP" secondAttribute="trailing" constant="8" symbolic="YES" id="bEa-Dx-jrP"/>
+                            <constraint firstAttribute="trailing" secondItem="Znj-Mv-CFd" secondAttribute="trailing" constant="20" symbolic="YES" id="czE-5L-Yde"/>
                             <constraint firstItem="Zr2-kq-qWP" firstAttribute="bottom" secondItem="Znj-Mv-CFd" secondAttribute="bottom" id="jNS-JI-Ray"/>
                             <constraint firstItem="BOb-1y-5OS" firstAttribute="bottom" secondItem="RoG-Kd-EBy" secondAttribute="bottom" id="pcI-hc-B2u"/>
+                            <constraint firstItem="RoG-Kd-EBy" firstAttribute="leading" secondItem="BOb-1y-5OS" secondAttribute="trailing" constant="100" id="rU8-No-GsY"/>
+                            <constraint firstAttribute="trailing" secondItem="RoG-Kd-EBy" secondAttribute="trailing" constant="20" symbolic="YES" id="u7c-Zh-tUB"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="centerY" secondItem="ytv-4v-2jA" secondAttribute="centerY" id="uv0-Jm-M5l"/>
+                            <constraint firstItem="A5x-nm-k09" firstAttribute="leading" secondItem="Ihe-cO-DZ5" secondAttribute="trailing" constant="8" id="yo6-cu-bk8"/>
                         </constraints>
+                        <animations/>
                     </view>
                     <connections>
                         <outlet property="browseButton" destination="A5x-nm-k09" id="ckn-pg-tqq"/>
