@@ -103,6 +103,7 @@
 		EF2CA8571BC0A6F300A45FDD /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */,
 				EF1C642E1BBFEEED00AA1C3C /* ChangeBundleIdTask.swift */,
 				EFB7C44D1BBD8F56005148C6 /* UnzipTask.swift */,
 				EF2CA84F1BC0061E00A45FDD /* IROperation.swift */,
@@ -172,7 +173,6 @@
 			children = (
 				EF2CA8571BC0A6F300A45FDD /* Tasks */,
 				EFB7C4511BBE2212005148C6 /* ResignTask.swift */,
-				EF2CA8511BC0233200A45FDD /* ResignApplicationTask.swift */,
 			);
 			name = Signing;
 			sourceTree = "<group>";

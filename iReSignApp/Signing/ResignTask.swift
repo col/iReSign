@@ -37,31 +37,6 @@ class ResignTask: NSObject {
     var pathExtension: String {
         return (sourcePath as NSString).pathExtension.lowercaseString
     }
-    
-    var payloadPath: String {
-        return workingPathURL!.URLByAppendingPathComponent(kPayloadDirName).path!
-    }
-    
-    var appName: String? {
-        do {
-            let files = try fileManager.contentsOfDirectoryAtPath(payloadPath) as [NSString]
-            return files.filter { $0.pathExtension.lowercaseString == "app" }.first as? String
-        }
-        catch {
-            return nil
-        }
-    }
-    
-    var appPath: String? {
-        if let appName = appName {
-            return NSURL(fileURLWithPath: payloadPath).URLByAppendingPathComponent(appName).path!
-        }
-        return nil
-    }
-    
-    var frameworksPath: String? {
-        return NSURL(fileURLWithPath: appPath!).URLByAppendingPathComponent(kFrameworksDirName).path!
-    }
 
     var destinationPath: String {
         return NSURL(fileURLWithPath: sourcePath)
@@ -95,6 +70,8 @@ class ResignTask: NSObject {
         }
         
         let unzipTask = UnzipTask(sourcePath: sourcePath, destinationPath: workingPath)
+        unzipTask.failureBlock = self.callback
+        unzipTask.completionBlock = { print("UnzipTask complete.") }
         operationQueue.addOperation(unzipTask)
         
         if let bundleId = bundleId {
@@ -104,53 +81,19 @@ class ResignTask: NSObject {
             operationQueue.addOperation(changeBundleIdTask)
         }
         
-        unzipTask.completionBlock = {
-            print("UnzipTask complete.")
-            if let appPath = self.appPath {
-                let signAppTask = CodeSignTask(path: appPath, certificate: self.certificate, entitlementsPath: self.entitlementsPath)
-                signAppTask.completionBlock = { print("CodeSign '\(appPath)' complete") }
-                self.operationQueue.addOperation(signAppTask)
-                
-                let verifyAppSigningTask = VerifyCodeSignTask(path: appPath)
-                verifyAppSigningTask.completionBlock = { print("Verify '\(appPath)' complete") }
-                self.operationQueue.addOperation(verifyAppSigningTask)
-                
-                let frameworkPaths = self.findFrameworkPaths()!
-                for frameworkPath in frameworkPaths {
-                    let signFrameworkTask = CodeSignTask(path: frameworkPath, certificate: self.certificate, entitlementsPath: self.entitlementsPath)
-                    signFrameworkTask.completionBlock = { print("CodeSign '\(frameworkPath)' complete") }
-                    self.operationQueue.addOperation(signFrameworkTask)
-                    
-                    let verifyTask = VerifyCodeSignTask(path: frameworkPath)
-                    verifyTask.completionBlock = { print("Verify '\(frameworkPath)' complete") }
-                    self.operationQueue.addOperation(verifyTask)
-                }
-                
-                let zipTask = ZipTask(baseDir: self.workingPath, destinationPath: self.destinationPath)
-                zipTask.completionBlock = {
-                    print("Zip complete")
-                    self.callback?(nil)
-                }
-                self.operationQueue.addOperation(zipTask)
-            }
+        let resignApplicationTask = ResignApplicationTask(baseDir: workingPath, certificate: certificate, entitlementsPath: entitlementsPath)
+        resignApplicationTask.failureBlock = self.callback
+        resignApplicationTask.completionBlock = { print("ResignApplicationTask complete") }
+        operationQueue.addOperation(resignApplicationTask)
+        
+        let zipTask = ZipTask(baseDir: self.workingPath, destinationPath: self.destinationPath)
+        zipTask.completionBlock = {
+            print("Zip complete")
+            self.callback?(nil)
         }
+        self.operationQueue.addOperation(zipTask)
         
         unzipTask.state = .Ready
-    }
-    
-    func findFrameworkPaths() -> [String]? {
-        do {
-            let files = try fileManager.contentsOfDirectoryAtPath(frameworksPath!)
-            return files.filter {
-                let type = ($0 as NSString).pathExtension.lowercaseString
-                return type == "framework" || type == "dylib"
-            }.map {
-                NSURL(fileURLWithPath: self.frameworksPath!).URLByAppendingPathComponent($0).path!
-            }
-        } catch {
-            print("Error finding frameworks: \(error)")
-            return nil
-        }
     }
     
     func createWorkingDirectory() -> Bool {

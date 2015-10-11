@@ -37,8 +37,12 @@ class UnzipTask: IROperation {
             NSThread.sleepForTimeInterval(1.0)
         }
      
+        if task.terminationStatus != 0 {
+            let error = NSError(domain: "UnzipTask", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unzip failed with exit code \(task.terminationStatus)"])
+            failureBlock?(error)
+        }
+        
         state = .Finished
-//        completionBlock?()
     }
     
 }
