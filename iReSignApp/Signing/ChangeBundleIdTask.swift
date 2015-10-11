@@ -39,21 +39,18 @@ class ChangeBundleIdTask: IROperation {
         state = .Executing
         
         do {
-            if let infoPlistPath = try findInfoPlist() {
-                let plist = try readInfoPlist(infoPlistPath)
-                plist[kKeyBundleIDPlistApp] = bundleId
-                try writeInfoPlist(plist, path:infoPlistPath)
-            } else {
-                print("Could not update bundle id. Failed to find Info.plist")
-            }
-        } catch {
-           print("Failed to update the bundle id: \(error)")
+            let infoPlistPath = try findInfoPlist()
+            let plist = try readInfoPlist(infoPlistPath)
+            plist[kKeyBundleIDPlistApp] = bundleId
+            try writeInfoPlist(plist, path:infoPlistPath)
+        } catch let error as NSError {
+            failureBlock?(error)
         }
         
         state = .Finished
     }
 
-    private func findInfoPlist() throws -> String? {
+    private func findInfoPlist() throws -> String {
         let dirContents = try fileManager.contentsOfDirectoryAtPath(payloadPath)
         
         for file in dirContents {
@@ -61,19 +58,27 @@ class ChangeBundleIdTask: IROperation {
                 return NSURL(fileURLWithPath: baseDir)
                     .URLByAppendingPathComponent(kPayloadDirName)
                     .URLByAppendingPathComponent(file)
-                    .URLByAppendingPathComponent(kInfoPlistFilename).path
+                    .URLByAppendingPathComponent(kInfoPlistFilename).path!
             }
         }
 
-        return nil
+        throw NSError(domain: "", code: 2, userInfo: [NSLocalizedDescriptionKey: "Info.plist not found"])
     }
     
     private func readInfoPlist(path: String) throws -> NSMutableDictionary {
-        return try NSPropertyListSerialization.propertyListWithData(
-            NSData(contentsOfFile: path)!,
-            options: .MutableContainersAndLeaves,
-            format: nil
-        ) as! NSMutableDictionary
+        if let data = NSData(contentsOfFile: path) {
+            return try NSPropertyListSerialization.propertyListWithData(
+                data,
+                options: .MutableContainersAndLeaves,
+                format: nil
+            ) as! NSMutableDictionary
+        } else {
+            throw NSError(
+                domain: "ChangeBundleIdTask",
+                code: 1,
+                userInfo: [NSLocalizedDescriptionKey: "Info.plist not found"]
+            )
+        }
     }
     
     private func writeInfoPlist(plistData: NSMutableDictionary, path: String) throws {

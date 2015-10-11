@@ -82,7 +82,13 @@ class ResignTask: NSObject {
     }
     
     func resign(callback: ResignCallback) {
-        self.callback = callback
+        self.callback = { error in
+            self.operationQueue.cancelAllOperations()
+            self.operationQueue.suspended = true
+            dispatch_async(dispatch_get_main_queue(), {
+                callback(error)
+            })
+        }
         
         if !createWorkingDirectory() {
             return
@@ -93,6 +99,7 @@ class ResignTask: NSObject {
         
         if let bundleId = bundleId {
             let changeBundleIdTask = ChangeBundleIdTask(baseDir: workingPath, bundleId: bundleId)
+            changeBundleIdTask.failureBlock = self.callback
             changeBundleIdTask.completionBlock = { print("ChangeBundleIdTask complete") }
             operationQueue.addOperation(changeBundleIdTask)
         }

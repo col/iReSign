@@ -8,7 +8,11 @@
 
 import Foundation
 
+typealias FailureCallback = (NSError?) -> Void
+
 class IROperation: NSOperation {
+    
+    var failureBlock: FailureCallback?
     
     enum State {
         case Ready, Executing, Finished

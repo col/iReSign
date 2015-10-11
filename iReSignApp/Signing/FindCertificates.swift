@@ -46,8 +46,6 @@ class FindCertificates: IROperation {
             print("output: \(output)")
             NSThread.sleepForTimeInterval(0.5)
         }
-
-                    NSThread.sleepForTimeInterval(5.0)
         
         // Verify the security result
         guard let securityResult = output where securityResult.length > 0 else {

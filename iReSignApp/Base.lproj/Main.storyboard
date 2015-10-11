@@ -185,13 +185,16 @@
                                     <outlet property="nextKeyView" destination="eYf-rN-BdL" id="brz-sh-BIt"/>
                                 </connections>
                             </button>
-                            <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BOb-1y-5OS">
-                                <rect key="frame" x="42" y="13" width="206" height="17"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BOb-1y-5OS">
+                                <rect key="frame" x="44" y="13" width="294" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="294" id="W0e-F1-8xA"/>
+                                </constraints>
                                 <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="Please wait" id="uYt-Ht-Mw7">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="Please wait" drawsBackground="YES" id="uYt-Ht-Mw7">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
                             <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QvH-Ph-dYu">
@@ -266,7 +269,7 @@
                             <constraint firstItem="jbK-8M-x11" firstAttribute="trailing" secondItem="Ihe-cO-DZ5" secondAttribute="trailing" id="Bgj-kP-Z24"/>
                             <constraint firstAttribute="trailing" secondItem="ytv-4v-2jA" secondAttribute="trailing" constant="20" symbolic="YES" id="Dkx-KK-zhO"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="trailing" secondItem="QvH-Ph-dYu" secondAttribute="trailing" id="FK0-53-l92"/>
-                            <constraint firstItem="BOb-1y-5OS" firstAttribute="leading" secondItem="nlk-UG-zZi" secondAttribute="trailing" constant="8" symbolic="YES" id="FXe-lt-TEz"/>
+                            <constraint firstItem="BOb-1y-5OS" firstAttribute="leading" secondItem="nlk-UG-zZi" secondAttribute="trailing" priority="900" constant="8" symbolic="YES" id="FXe-lt-TEz"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="leading" secondItem="QvH-Ph-dYu" secondAttribute="leading" id="GpK-ZB-ZJj"/>
                             <constraint firstItem="Ihe-cO-DZ5" firstAttribute="leading" secondItem="aZW-FN-e6g" secondAttribute="leading" constant="20" symbolic="YES" id="K9n-WX-R3y"/>
                             <constraint firstAttribute="trailing" secondItem="A5x-nm-k09" secondAttribute="trailing" constant="20" symbolic="YES" id="Kib-yb-KqK"/>
@@ -283,8 +286,8 @@
                             <constraint firstItem="Znj-Mv-CFd" firstAttribute="leading" secondItem="Zr2-kq-qWP" secondAttribute="trailing" constant="8" symbolic="YES" id="bEa-Dx-jrP"/>
                             <constraint firstAttribute="trailing" secondItem="Znj-Mv-CFd" secondAttribute="trailing" constant="20" symbolic="YES" id="czE-5L-Yde"/>
                             <constraint firstItem="Zr2-kq-qWP" firstAttribute="bottom" secondItem="Znj-Mv-CFd" secondAttribute="bottom" id="jNS-JI-Ray"/>
+                            <constraint firstItem="BOb-1y-5OS" firstAttribute="leading" secondItem="aZW-FN-e6g" secondAttribute="leading" priority="100" constant="20" symbolic="YES" id="odg-jb-vZz"/>
                             <constraint firstItem="BOb-1y-5OS" firstAttribute="bottom" secondItem="RoG-Kd-EBy" secondAttribute="bottom" id="pcI-hc-B2u"/>
-                            <constraint firstItem="RoG-Kd-EBy" firstAttribute="leading" secondItem="BOb-1y-5OS" secondAttribute="trailing" constant="100" id="rU8-No-GsY"/>
                             <constraint firstAttribute="trailing" secondItem="RoG-Kd-EBy" secondAttribute="trailing" constant="20" symbolic="YES" id="u7c-Zh-tUB"/>
                             <constraint firstItem="eYf-rN-BdL" firstAttribute="centerY" secondItem="ytv-4v-2jA" secondAttribute="centerY" id="uv0-Jm-M5l"/>
                             <constraint firstItem="A5x-nm-k09" firstAttribute="leading" secondItem="Ihe-cO-DZ5" secondAttribute="trailing" constant="8" id="yo6-cu-bk8"/>
@@ -304,6 +307,7 @@
                         <outlet property="provisioningPathField" destination="jbK-8M-x11" id="bad-Nr-5k1"/>
                         <outlet property="resignButton" destination="RoG-Kd-EBy" id="65J-Z4-Fek"/>
                         <outlet property="statusLabel" destination="BOb-1y-5OS" id="l4k-ue-MQ9"/>
+                        <outlet property="statusLabelNoFlurryConstraint" destination="odg-jb-vZz" id="QbR-QW-a7x"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

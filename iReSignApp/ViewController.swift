@@ -25,16 +25,15 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     @IBOutlet var entitlementBrowseButton: NSButton!
     @IBOutlet var resignButton: NSButton!
     @IBOutlet var statusLabel: NSTextField!
+    @IBOutlet var statusLabelNoFlurryConstraint: NSLayoutConstraint!
     @IBOutlet var flurry: NSProgressIndicator!
     @IBOutlet var changeBundleIDCheckbox: NSButton!
     @IBOutlet var certComboBox: NSComboBox!
     
     var certComboBoxItems: [String]?
     var controls: [NSControl] = []
-    
     let defaults = NSUserDefaults.standardUserDefaults()
     let fileManager = NSFileManager.defaultManager()
-    
     let operationQueue = NSOperationQueue()
     
     override func viewDidLoad() {
@@ -47,17 +46,21 @@ class ViewController: NSViewController, NSComboBoxDataSource {
             bundleIDField, changeBundleIDCheckbox,
             certComboBox, resignButton
         ]
-
-        flurry.alphaValue = 0.5
+        
+        loadDefaultValues()
+        checkForDependencies()
+        enableControls()
+        hideProgress()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
         
         let findCertsTask = FindCertificates() { results in
             self.updateCertComboBox(results)
         }
         operationQueue.addOperation(findCertsTask)
-        
-        loadDefaultValues()
-        checkForDependencies()
-        enableControls()
+        updateStatus("Finding certificates...", progress: true)
     }
     
     private func checkForDependencies() {
@@ -75,17 +78,16 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     }
 
     private func updateCertComboBox(certificates: [String]?) {
+        enableControls()
+        updateStatus("Ready", progress: false)
+        
         guard let certificates = certificates where certificates.count > 0 else {
             showAlertOfKind(.CriticalAlertStyle, withTitle: "Error", andMessage: "Getting Certificate ID's failed")
-            enableControls()
-            statusLabel.stringValue = "Ready"
             return;
         }
         
         self.certComboBoxItems = certificates
         self.certComboBox.reloadData()
-        
-        statusLabel.stringValue = "Signing Certificate IDs extracted"
         
         if let certificateName = defaults.valueForKey(CertificateNamePrefKey) as? String {
             if let index = certComboBoxItems!.indexOf(certificateName) {
@@ -93,27 +95,26 @@ class ViewController: NSViewController, NSComboBoxDataSource {
                 certComboBox.selectItemAtIndex(index)
             }
         }
-        
-        enableControls()
     }
     
     // MARK: Interface Actions
     
     @IBAction func resign(sender: AnyObject) {
-        print("resign")
-        
         disableControls()
-        showProgress()
         savePreferences()
+        
+        updateStatus("Resigning...", progress: true)
         
         if !checkRequiredFields() {
             enableControls()
-            hideProgress()
-            statusLabel.stringValue = "Please try again"
+            updateStatus("Please try again", progress: false)
             return
         }
         
-        let bundleId: String? = bundleIDField.stringValue == "" ? nil : bundleIDField.stringValue
+        var bundleId: String? = nil
+        if changeBundleIDCheckbox.state == NSOnState && bundleIDField.stringValue != "" {
+            bundleId = bundleIDField.stringValue
+        }
         let provisioningPath: String? = provisioningPathField.stringValue == "" ? nil : provisioningPathField.stringValue
         let entitlementsPath: String? = entitlementField.stringValue == "" ? nil : entitlementField.stringValue
         
@@ -126,12 +127,11 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         )
         
         resignTask.resign() { error in
-            self.hideProgress()
-            self.statusLabel.hidden = false
+            self.enableControls()
             if let error = error {
-                self.statusLabel.stringValue = error.localizedDescription
+                self.updateStatus("Resign Failed: \(error.localizedDescription)", progress: false)
             } else {
-                self.statusLabel.stringValue = "Resign Successfull!"
+                self.updateStatus("Resign Successfull!", progress: false)
             }
         }
   
@@ -181,6 +181,11 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     
     // MARK: Private Methods
     
+    private func updateStatus(message: String, progress: Bool) {
+        statusLabel.stringValue = message
+        progress ? showProgress() : hideProgress()
+    }
+    
     private func loadDefaultValues() {
         if let entitlementPath = defaults.valueForKey(EntitlementPathPrefKey) as? String {
             print("Default Entitlements Path: \(entitlementPath)")
@@ -207,7 +212,7 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         defaults.setValue(entitlementField.stringValue, forKey: EntitlementPathPrefKey)
         defaults.setValue(provisioningPathField.stringValue, forKey: ProvisioningPathPrefKey)
         defaults.setValue(bundleIDField.stringValue, forKey: BundleIDPrefKey)
-        defaults.setValue(NSNumber(bool: changeBundleIDCheckbox.state == NSOnState), forKey: BundleIDPrefKey)
+        defaults.setValue(NSNumber(bool: changeBundleIDCheckbox.state == NSOnState), forKey: ChangeBundleIDPrefKey)
         defaults.synchronize()
     }
     
@@ -246,6 +251,7 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         for control in controls {
             control.enabled = true
         }
+        bundleIDField.enabled = changeBundleIDCheckbox.state == NSOnState
     }
     
     private func disableControls() {
@@ -256,12 +262,12 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     
     private func hideProgress() {
         flurry.stopAnimation(self)
-        flurry.alphaValue = 0.5
+        statusLabelNoFlurryConstraint.priority = 999
     }
     
     private func showProgress() {
         flurry.startAnimation(self)
-        flurry.alphaValue = 1.0
+        statusLabelNoFlurryConstraint.priority = 100
     }
     
     private func showAlertOfKind(style: NSAlertStyle, withTitle title: String, andMessage message: String) {
