@@ -42,8 +42,8 @@ class ZipTask: IROperation {
         
         do {
             try NSFileManager.defaultManager().removeItemAtPath(baseDir)
-        } catch {
-            print("Failed cleaning up temp directory: \(error)")
+        } catch let error as NSError {
+            failureBlock?(error)
         }
         
         state = .Finished

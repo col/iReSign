@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import iReSignKit
 
 class ViewController: NSViewController, NSComboBoxDataSource {
     
@@ -126,15 +127,21 @@ class ViewController: NSViewController, NSComboBoxDataSource {
             bundleId: bundleId
         )
         
-        resignTask.resign() { error in
-            self.enableControls()
-            if let error = error {
-                self.updateStatus("Resign Failed: \(error.localizedDescription)", progress: false)
-            } else {
-                self.updateStatus("Resign Successfull!", progress: false)
-            }
+        resignTask.failureBlock = { error in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.enableControls()
+                self.updateStatus("Resign Failed: \(error!.localizedDescription)", progress: false)
+            })
         }
-  
+        
+        resignTask.completionBlock = {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.enableControls()
+                self.updateStatus("Resign Successfull!", progress: false)
+            })
+        }
+        
+        operationQueue.addOperation(resignTask)
     }
     
     @IBAction func browse(sender: AnyObject) {
@@ -188,19 +195,15 @@ class ViewController: NSViewController, NSComboBoxDataSource {
     
     private func loadDefaultValues() {
         if let entitlementPath = defaults.valueForKey(EntitlementPathPrefKey) as? String {
-            print("Default Entitlements Path: \(entitlementPath)")
             entitlementField.stringValue = entitlementPath
         }
         if let provisioningPath = defaults.valueForKey(ProvisioningPathPrefKey) as? String {
-            print("Default Provisioning Path: \(provisioningPath)")
             provisioningPathField.stringValue = provisioningPath
         }
         if let bundleId = defaults.valueForKey(BundleIDPrefKey) as? String {
-            print("Default Bundle ID: \(bundleId)")
             bundleIDField.stringValue = bundleId
         }
         if let changeBundleId = defaults.valueForKey(ChangeBundleIDPrefKey) as? NSNumber {
-            print("Default Change Bundle ID: \(changeBundleId)")
             changeBundleIDCheckbox.state = changeBundleId.boolValue ? NSOnState : NSOffState
         }
     }

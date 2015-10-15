@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias ResignCallback = (NSError?) -> Void
+public typealias ResignCallback = (NSError?) -> Void
 
 let kKeyInfoPlistApplicationProperties = "ApplicationProperties"
 let kKeyInfoPlistApplicationPath       = "ApplicationPath"
@@ -17,7 +17,7 @@ let kPayloadDirName                    = "Payload"
 let kProductsDirName                   = "Products"
 let kInfoPlistFilename                 = "Info.plist"
 
-class ResignTask: NSObject {
+public class ResignTask: IROperation {
     
     let sourcePath: String
     let certificate: String
@@ -44,24 +44,34 @@ class ResignTask: NSObject {
             .URLByAppendingPathComponent("resigned.ipa").path!
     }
     
-    init(sourcePath: String, certificate: String, provisioningPath: String?, entitlementsPath: String?, bundleId: String?) {
+    public init(sourcePath: String, certificate: String, provisioningPath: String?, entitlementsPath: String?, bundleId: String?) {
         self.sourcePath = sourcePath
         self.certificate = certificate
         self.provisioningPath = provisioningPath
         self.entitlementsPath = entitlementsPath
         self.bundleId = bundleId
         self.workingPathURL = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true).URLByAppendingPathComponent("com.colharris.iresign")
-        
         operationQueue = NSOperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
+        super.init()
     }
     
-    func resign(callback: ResignCallback) {
+    override public func start() {
+        if cancelled {
+            return
+        }
+        
+        state = .Executing
+
         self.callback = { error in
             self.operationQueue.cancelAllOperations()
             self.operationQueue.suspended = true
             dispatch_async(dispatch_get_main_queue(), {
-                callback(error)
+                if let error = error {
+                    self.failureBlock?(error)
+                } else {
+                    self.completionBlock?()
+                }
             })
         }
         
@@ -71,25 +81,32 @@ class ResignTask: NSObject {
         
         let unzipTask = UnzipTask(sourcePath: sourcePath, destinationPath: workingPath)
         unzipTask.failureBlock = self.callback
-        unzipTask.completionBlock = { print("UnzipTask complete.") }
+        unzipTask.completionBlock = {
+            Logger.info("UnzipTask complete.")
+        }
         operationQueue.addOperation(unzipTask)
         
         if let bundleId = bundleId {
             let changeBundleIdTask = ChangeBundleIdTask(baseDir: workingPath, bundleId: bundleId)
             changeBundleIdTask.failureBlock = self.callback
-            changeBundleIdTask.completionBlock = { print("ChangeBundleIdTask complete") }
+            changeBundleIdTask.completionBlock = {
+                Logger.info("ChangeBundleIdTask complete")
+            }
             operationQueue.addOperation(changeBundleIdTask)
         }
         
         let resignApplicationTask = ResignApplicationTask(baseDir: workingPath, certificate: certificate, entitlementsPath: entitlementsPath)
         resignApplicationTask.failureBlock = self.callback
-        resignApplicationTask.completionBlock = { print("ResignApplicationTask complete") }
+        resignApplicationTask.completionBlock = {
+            Logger.info("Resign complete")
+        }
         operationQueue.addOperation(resignApplicationTask)
         
         let zipTask = ZipTask(baseDir: self.workingPath, destinationPath: self.destinationPath)
         zipTask.completionBlock = {
-            print("Zip complete")
+            Logger.info("Zip complete")
             self.callback?(nil)
+            self.state = .Finished
         }
         self.operationQueue.addOperation(zipTask)
         
@@ -102,10 +119,10 @@ class ResignTask: NSObject {
                 try fileManager.removeItemAtPath(workingPath)
             }
             try fileManager.createDirectoryAtPath(workingPath, withIntermediateDirectories: true, attributes: nil)
-            print("Created working directory at: \(workingPath)")
+            Logger.debug("Created working directory at: \(workingPath)")
             return true
         } catch let error as NSError {
-            print("Error creating working directory: \(error)")
+            Logger.error("Error creating working directory: \(error)")
             let error = NSError(domain: "iReSign", code: 1, userInfo: [
                 NSLocalizedDescriptionKey: "Failed to create working directory.",
                 NSLocalizedFailureReasonErrorKey: error.localizedDescription])

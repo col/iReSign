@@ -8,11 +8,11 @@
 
 import Foundation
 
-typealias FailureCallback = (NSError?) -> Void
+public typealias FailureCallback = (NSError?) -> Void
 
-class IROperation: NSOperation {
+public class IROperation: NSOperation {
     
-    var failureBlock: FailureCallback?
+    public var failureBlock: FailureCallback?
     
     enum State {
         case Ready, Executing, Finished
@@ -39,19 +39,19 @@ class IROperation: NSOperation {
         }
     }
     
-    override var ready: Bool {
+    override public var ready: Bool {
         return super.ready && state == .Ready
     }
     
-    override var executing: Bool {
+    override public var executing: Bool {
         return state == .Executing
     }
     
-    override var finished: Bool {
+    override public var finished: Bool {
         return state == .Finished
     }
     
-    override var asynchronous: Bool {
+    override public var asynchronous: Bool {
         return true
     }
     

@@ -65,12 +65,12 @@ class ResignApplicationTask: IROperation {
             
             let signAppTask = CodeSignTask(path: appPath, certificate: self.certificate, entitlementsPath: self.entitlementsPath)
             signAppTask.failureBlock = failureBlock
-            signAppTask.completionBlock = { print("CodeSign '\(appPath)' complete") }
+            signAppTask.completionBlock = { Logger.debug("CodeSign '\(appPath)' complete") }
             self.operationQueue.addOperation(signAppTask)
             
             let verifyAppSigningTask = VerifyCodeSignTask(path: appPath)
             verifyAppSigningTask.failureBlock = failureBlock
-            verifyAppSigningTask.completionBlock = { print("Verify '\(appPath)' complete") }
+            verifyAppSigningTask.completionBlock = { Logger.debug("Verify '\(appPath)' complete") }
             verifyAppSigningTask.addDependency(signAppTask)
             self.operationQueue.addOperation(verifyAppSigningTask)
             
@@ -81,13 +81,13 @@ class ResignApplicationTask: IROperation {
                 
                 let signFrameworkTask = CodeSignTask(path: frameworkPath, certificate: self.certificate, entitlementsPath: self.entitlementsPath)
                 signFrameworkTask.failureBlock = failureBlock
-                signFrameworkTask.completionBlock = { print("CodeSign '\(frameworkPath)' complete") }
+                signFrameworkTask.completionBlock = { Logger.debug("CodeSign '\(frameworkPath)' complete") }
                 signFrameworkTask.addDependency(signAppTask)
                 self.operationQueue.addOperation(signFrameworkTask)
                 
                 let verifyTask = VerifyCodeSignTask(path: frameworkPath)
                 verifyTask.failureBlock = failureBlock
-                verifyTask.completionBlock = { print("Verify '\(frameworkPath)' complete") }
+                verifyTask.completionBlock = { Logger.debug("Verify '\(frameworkPath)' complete") }
                 verifyTask.addDependency(signFrameworkTask)
                 self.operationQueue.addOperation(verifyTask)
                 
@@ -120,7 +120,7 @@ class ResignApplicationTask: IROperation {
                     NSURL(fileURLWithPath: self.frameworksPath!).URLByAppendingPathComponent($0).path!
             }
         } catch {
-            print("Error finding frameworks: \(error)")
+            Logger.error("Error finding frameworks: \(error)")
             return nil
         }
     }

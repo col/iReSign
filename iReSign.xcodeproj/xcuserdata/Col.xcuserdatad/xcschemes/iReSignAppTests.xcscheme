@@ -22,6 +22,16 @@
                ReferencedContainer = "container:iReSign.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EF86B3AD1BCE1F000085172F"
+               BuildableName = "iReSignKitTests.xctest"
+               BlueprintName = "iReSignKitTests"
+               ReferencedContainer = "container:iReSign.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <AdditionalOptions>
       </AdditionalOptions>

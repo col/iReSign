@@ -40,8 +40,8 @@ class ChangeProvisioningProfileTask: IROperation {
                 try fileManager.removeItemAtPath(embeddedProfile)
             }
             try fileManager.copyItemAtPath(provisioningPath, toPath: embeddedProfile)
-        } catch {
-            print("Failed to change embedded provisioning profile: \(error)")
+        } catch let error as NSError {
+            failureBlock?(error)
         }
         
         // TODO: verify provisioning profile matches the apps bundle id

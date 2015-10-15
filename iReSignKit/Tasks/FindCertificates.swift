@@ -8,21 +8,21 @@
 
 import Foundation
 
-typealias FindCertificatesCallback = ([String]?) -> Void
+public typealias FindCertificatesCallback = ([String]?) -> Void
 
-class FindCertificates: IROperation {
+public class FindCertificates: IROperation {
     
     let task: NSTask
     var callback: FindCertificatesCallback?
     
-    init(callback: FindCertificatesCallback?) {
+    public init(callback: FindCertificatesCallback?) {
         self.callback = callback
         task = NSTask()
         super.init()
         state = .Ready
     }
     
-    override func start() {
+    override public func start() {
         
         if cancelled {
             return
@@ -43,7 +43,6 @@ class FindCertificates: IROperation {
         let output = NSString(data: handle.readDataToEndOfFile(), encoding: NSASCIIStringEncoding)
         
         while task.running {
-            print("output: \(output)")
             NSThread.sleepForTimeInterval(0.5)
         }
         
